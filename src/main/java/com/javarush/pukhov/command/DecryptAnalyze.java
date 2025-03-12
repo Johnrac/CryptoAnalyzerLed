@@ -62,12 +62,12 @@ public final class DecryptAnalyze extends Decrypt {
     }
 
     private double[][] getStatisticsMatrix(FileInput fileInput) {
-        statistic = getInstance();
+        statistic = getInstanceStatistic();
         readFile(fileInput);
         return statistic.getStatisticsMatrix();
     }
 
-    private Statistic getInstance() {
+    private Statistic getInstanceStatistic() {
         return new Statistic(alphabet);
     }
 
@@ -114,9 +114,6 @@ public final class DecryptAnalyze extends Decrypt {
                 i += COUNT_TRY_FIND;
                 bestDistance = probeDistance;
                 bestChars = chars.clone();
-                // For debug only, here System.out.println - not the best solution. Here need
-                // the logger
-                System.out.println("Best distance = " + bestDistance);
             }
         }
         bestEncryptedAlphabet = Arrays.asList(bestChars);
