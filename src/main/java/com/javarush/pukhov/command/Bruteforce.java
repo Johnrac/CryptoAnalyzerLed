@@ -2,6 +2,7 @@ package com.javarush.pukhov.command;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import com.javarush.pukhov.constant.AlphabetCaesar;
 import com.javarush.pukhov.constant.Constants;
@@ -66,6 +67,24 @@ public final class Bruteforce extends Decrypt {
     @Override
     public String toString() {
         return Constants.BRUTE_FORCE;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fileInput, fileOutput, foundSymbol, countSpace, foundKey);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Bruteforce)) {
+            return false;
+        }
+        Bruteforce other = (Bruteforce) obj;
+        return Objects.equals(fileInput, other.fileInput) && Objects.equals(fileOutput, other.fileOutput)
+                && foundSymbol == other.foundSymbol && countSpace == other.countSpace && foundKey == other.foundKey;
     }
 
 }

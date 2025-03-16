@@ -1,6 +1,7 @@
 package com.javarush.pukhov.command;
 
 import java.util.List;
+import java.util.Objects;
 
 import com.javarush.pukhov.constant.Constants;
 import com.javarush.pukhov.io.FileInput;
@@ -33,14 +34,31 @@ public final class DecryptKeys extends Decrypt {
     }
 
     @Override
-    public String toString() {
-        return Constants.DECRYPT;
-    }
-
-    @Override
     protected char[] processSymbols(char[] buf, int countRead) {
         ProcessorCipherCaesar cipherCaesar = new ProcessorCipherCaesar(key, DECRYPT_MODE);
         return cipherCaesar.processSymbolsWithKey(buf, countRead);
     }
 
+    @Override
+    public String toString() {
+        return Constants.DECRYPT;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(key, fileInput, fileOutput);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof DecryptKeys)) {
+            return false;
+        }
+        DecryptKeys other = (DecryptKeys) obj;
+        return key == other.key && Objects.equals(fileInput, other.fileInput)
+                && Objects.equals(fileOutput, other.fileOutput);
+    }
 }
